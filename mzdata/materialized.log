@@ -1,0 +1,11 @@
+2021-11-09T19:33:15.891353Z  INFO materialized: booting server
+materialized v0.9.11 (0549e9e21)
+OpenSSL 1.1.1l  24 Aug 2021
+librdkafka v1.7.0
+invoked as: materialized
+os: Mac OS 11.6.0 [64-bit]
+cpus: 8 logical, 8 physical, 8 useful
+cpu0: Apple M1 0MHz
+memory: 17179869KB total, 15504717KB used
+swap: 2147483KB total, 1826881KB used    
+2021-11-09T19:33:16.056833Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
