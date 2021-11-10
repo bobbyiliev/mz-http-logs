@@ -2,6 +2,10 @@
 
 This is a self-contained demo using [Materialize](https://materialize.com) to parse server logs for a mock e-commerce site, and extract some business insights from them.
 
+For more information about this demo and the “what” and “why” of our proposed deployment using Materialize to provide real-time log parsing make sure to check out the official documentation here:
+
+> [Materialize - Log Parsing Demo](https://materialize.com/docs/demos/log-parsing/)
+
 ## Prerequisites 
 
 Before you get started, you need to make sure that you have Docker and Docker Compose installed.
