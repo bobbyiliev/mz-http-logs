@@ -2,6 +2,8 @@
 
 This is a self-contained demo using [Materialize](https://materialize.com) to parse server logs for a mock e-commerce site, and extract some business insights from them.
 
+![Materialized Log Parssing Demo](https://user-images.githubusercontent.com/21223421/141309644-d80cffe4-39f9-4afa-a211-907f9de7d74e.png)
+
 ## Introduction
 
 Servers, especially busy ones, can emit a vast amount of logging data. Given that logs are unstructured strings, it’s challenging to draw inferences from them. This inaccessibility often means that even though logs contain a lot of potential, teams don’t capitalize on them.
@@ -53,7 +55,7 @@ We will connect to Materialize through mzcli, which is our forked version of pgc
 
 ### Diagram
 
-TODO
+![Materialize Log Parsing demo Diagram](https://materialize.com/docs/images/demos/log_parsing_architecture_diagram.png)
 
 ## Conceptual overview
 
