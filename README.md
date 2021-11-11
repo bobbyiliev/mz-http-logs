@@ -290,6 +290,50 @@ In case that you needed to check the query used to create the view, you can use 
 SHOW CREATE VIEW unique_visitors;
 ```
 
+---
+
+Let's create one more Materialized view and aggregate the logs:
+
+```sql
+CREATE MATERIALIZED VIEW aggregated_logs AS
+  SELECT
+    ip,
+    path,
+    code::int,
+    COUNT(*) as count
+  FROM requests GROUP BY 1,2,3;
+```
+
+The important things to note are:
+
+* The moment you execute the statement, Materialize creates a dataflow to match the SQL
+* Then Materialize processes each line of the log through the dataflow, and keeps listening for new lines. This is incredibly powerful for dashboards that rely on real-time data.
+
+A quick rundown of the statement itself:
+
+* First we start with the `CREATE MATERIALIZED VIEW aggregated_logs` which identifies that we want to create a new Materialized view. The `aggregated_logs` part is the name of our Materialized view.
+* Then we specify the `SELECT` statement used to build the output. In this case we are aggregating by `ip`, `path` and `statuscode`, and we are counting the total instances of each combo with a `COUNT(*)`
+
+Let's run a `SELECT` query to check out the results
+
+```sql
+SELECT * FROM unique_visitors ORDER BY count DESC LIMIT 100;
+// Output:
+       ip       |      path      | code | count 
+----------------+----------------+------+-------
+ 18.120.103.2   | GET / HTTP/1.1 |  200 |    15
+ 2.65.37.39     | GET / HTTP/1.1 |  200 |    13
+ 127.23.43.9    | GET / HTTP/1.1 |  200 |    13
+ 29.120.64.86   | GET / HTTP/1.1 |  200 |    13
+ 82.27.85.125   | GET / HTTP/1.1 |  200 |    13
+ 112.69.118.96  | GET / HTTP/1.1 |  200 |    13
+ 115.118.92.80  | GET / HTTP/1.1 |  200 |    13
+ 60.104.117.114 | GET / HTTP/1.1 |  200 |    13
+ 0.67.28.9      | GET / HTTP/1.1 |  200 |    12
+```
+
+When creating a Materialized View, it could be based on multiple sources like your Kafka Stream, a raw data file that you have on an S3 bucket, and your PostgreSQL database. This single view will give you the power to analyze your data in real-time.
+
 # Recap
 In this demo, we saw:
 
