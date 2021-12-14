@@ -14,8 +14,6 @@ services:
     ports:
       - 6875:6875
     command: -w4 --disable-telemetry
-    environment:
-      - MZ_DEV=1
     volumes:
       - logfile:/log
 
@@ -38,28 +36,8 @@ services:
     image: materialize/cli
     container_name: mzcli
     init: true
-    # if you run the terminal with a dark background uncomment these lines
-    # environment:
-    #   MZCLI_PROMPT: DARK_MODE
     depends_on:
       - materialized
 
-  dashboard:
-    image: materialize/metabase:v0.0.5
-    container_name: metabase
-    environment:
-      - 'MATERIALIZED_URL=materialized:6875'
-    depends_on:
-       - materialized
-    ports:
-      - 3030:3000
-
-  setup:
-    image: materialize/cli
-    depends_on:
-      - materialized
-    volumes:
-      - .:/mounted
-    command: /mounted/setup.sh
 volumes:
   logfile:
