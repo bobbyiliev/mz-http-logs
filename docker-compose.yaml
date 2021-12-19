@@ -10,12 +10,12 @@
 version: '3.7'
 services:
   materialized:
-    image: materialize/materialized:v0.9.11
+    image: materialize/materialized:v0.12.0
     ports:
       - 6875:6875
     command: -w4 --disable-telemetry
     volumes:
-      - logfile:/log
+      - minio:/data
 
   server:
     build: ./apps
@@ -23,14 +23,27 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - logfile:/log
-    command: /bin/sh -c "./server.py 2> /log/requests"
+      - minio:/data
+    command: /bin/sh -c "./server.py 2> /data/logfile/requests"
 
   client:
     build: ./apps
     init: true
     depends_on: [server]
     command: ./loadgen.py
+
+  minio:
+    image: minio/minio
+    ports:
+      - 9000:9000
+      - 9001:9001
+    volumes:
+      - minio:/data
+    entrypoint: sh
+    command: -c 'mkdir -p /data/logfile && minio server /data --console-address=:9001'
+    environment:
+      - "MINIO_ACCESS_KEY=EXAMPLEKEYHERE"
+      - "MINIO_SECRET_KEY=EXAMPLESECRETKEYHERE"
 
   mzcli:
     image: materialize/cli
@@ -40,4 +53,4 @@ services:
       - materialized
 
 volumes:
-  logfile:
+  minio:
