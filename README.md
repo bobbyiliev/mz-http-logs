@@ -1,9 +1,11 @@
 # [Materialize - Log Parsing Demo](https://materialize.com/docs/demos/log-parsing/)
 
+> [!WARNING]
+> This demo includes examples for an unsupported version of [Materialize (0.26.x)](https://materialize.com/docs/lts/).
+
 This is a self-contained demo using [Materialize](https://materialize.com) to parse server logs for a mock e-commerce site, and extract some business insights from them.
 
 ![Materialized Log Parssing Demo](https://user-images.githubusercontent.com/21223421/141309644-d80cffe4-39f9-4afa-a211-907f9de7d74e.png)
-
 
 ## Prerequisites
 
